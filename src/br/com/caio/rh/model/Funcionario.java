@@ -1,10 +1,7 @@
 package br.com.caio.rh.model;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
-
-import br.com.caio.rh.ValidacaoException;
 
 public class Funcionario {
 
@@ -14,20 +11,15 @@ public class Funcionario {
 	private BigDecimal salario;
 	private LocalDate dataUltimoReajuste;
 
-	public Funcionario(String nome, String cpf, Cargo cargo, BigDecimal salario, LocalDate dataUltimoReajuste) {
+	public Funcionario(String nome, String cpf, Cargo cargo, BigDecimal salario) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.cargo = cargo;
 		this.salario = salario;
-		this.dataUltimoReajuste = dataUltimoReajuste;
 	}
 	
-	public void reajustarSalario (BigDecimal aumento) {
-		BigDecimal percentualReajuste = aumento.divide(salario, RoundingMode.HALF_DOWN);
-		if(percentualReajuste.compareTo(new BigDecimal("0.4")) > 0) {
-			throw new ValidacaoException("Reajuste nao pode ser superior a 40% do salario!");
-		}
-		this.salario = this.salario.add(aumento);
+	public void atualizarSalario (BigDecimal novoSalario) {
+		this.salario = novoSalario;
 		this.dataUltimoReajuste = LocalDate.now();
 		}
 
